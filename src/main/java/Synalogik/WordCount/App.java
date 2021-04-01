@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -51,7 +53,16 @@ public class App
 			
 			
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.append("Word count = " + WordCount.totalWords(requestBody));
+			stringBuilder.append("Word count = " + WordCount.totalWords(requestBody) + "\n");
+			
+			Map<Integer, Integer> wordBreakDown = WordCount.WordBreakdown(requestBody);
+			for (Map.Entry<Integer, Integer> entry : wordBreakDown.entrySet()) {
+				Integer wordLength = entry.getKey();
+			    Integer occurrences = entry.getValue();
+			    stringBuilder.append("Number of words of length " + wordLength + " is " + occurrences + "\n");
+			}
+			
+			
 			
 			
 			String response = stringBuilder.toString();
