@@ -6,13 +6,15 @@ import java.util.Map;
 public class WordCount {
 	
 	
-	public static Map<Integer, Integer> WordBreakdown(String input) {
-		Map<Integer,Integer> wordBreakdown = new HashMap<>();
+	Map<Integer,Integer> wordBreakdown = new HashMap<>();
+	
+	public void WordBreakdown(String input) {
+		wordBreakdown = new HashMap<>();
 		if(input.isBlank()) {
-			return wordBreakdown;
+			return;
 		}
 		
-		String[] words = input.split("\\s+");
+		String[] words = input.trim().split("\\s+");
 		for (String word : words) {
 			int wordLengh = word.length();
 			if(wordBreakdown.containsKey(wordLengh)) {
@@ -22,20 +24,39 @@ public class WordCount {
 			}
 			
 		}
-		
-		
-		
-		return wordBreakdown;	
 	}
 	
-	public static int totalWords(String input) {
-		if (input.isBlank()) {
-			return 0;
-		} else 
-		{
-			return input.trim().split("\\s+").length;
+	
+	public Map<Integer,Integer> getWordBreakdown(){
+		return wordBreakdown;
+	}
+	
+	
+	public int getTotalWords() {
+		int total = 0;
+		for(int words : wordBreakdown.values()) {
+			total += words;
 		}
+		return total;
 		
 	}
+	
+	public double getAverage() {
+		double totalLetters = 0;
+		double totalWords = 0;
+		
+		for (Map.Entry<Integer, Integer> entry : wordBreakdown.entrySet()) {
+			int words = entry.getValue();
+			totalWords += words;
+		    totalLetters += entry.getKey() * words;
+		}
+		if(totalWords == 0 ) {
+			return 0;
+		} else {
+			return totalLetters / totalWords;
+		}
+
+	}
+
 
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,6 +21,9 @@ import com.sun.net.httpserver.HttpServer;
  */
 public class App 
 {
+	
+	private static DecimalFormat df3 = new DecimalFormat("#.###");
+	
     public static void main( String[] args ) throws IOException
     {
     	ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -51,11 +55,13 @@ public class App
 	        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			String requestBody = bufferedReader.lines().collect(Collectors.joining());
 			
-			
+			WordCount wordCount = new WordCount();
+			wordCount.WordBreakdown(requestBody);
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.append("Word count = " + WordCount.totalWords(requestBody) + "\n");
+			stringBuilder.append("Word count = " + wordCount.getTotalWords() + "\n");
+			stringBuilder.append("Average word length =" + df3.format(wordCount.getAverage()) + "\n");
 			
-			Map<Integer, Integer> wordBreakDown = WordCount.WordBreakdown(requestBody);
+			Map<Integer, Integer> wordBreakDown = wordCount.getWordBreakdown();
 			for (Map.Entry<Integer, Integer> entry : wordBreakDown.entrySet()) {
 				Integer wordLength = entry.getKey();
 			    Integer occurrences = entry.getValue();
