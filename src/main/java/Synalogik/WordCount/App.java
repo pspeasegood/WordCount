@@ -22,7 +22,7 @@ import com.sun.net.httpserver.HttpServer;
 public class App 
 {
 	
-	private static DecimalFormat df3 = new DecimalFormat("#.###");
+
 	
     public static void main( String[] args ) throws IOException
     {
@@ -47,6 +47,7 @@ public class App
 		}
 	}
 	
+	private static DecimalFormat df3 = new DecimalFormat("#.###");
 	
 	static class WordCountHandler implements HttpHandler {
 		@Override
@@ -68,8 +69,9 @@ public class App
 			    stringBuilder.append("Number of words of length " + wordLength + " is " + occurrences + "\n");
 			}
 			
-			
-			
+			List<Integer> commonLengths = wordCount.getCommonLength();
+			stringBuilder.append("The most frequently occurring word length occurs " + commonLengths.get(0) + " times, for word lengths of " + commonLengths.get(1));
+			commonLengths.stream().skip(2).forEach(v -> stringBuilder.append("," + v));
 			
 			String response = stringBuilder.toString();
 			System.out.println(response);
