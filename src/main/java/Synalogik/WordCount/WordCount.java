@@ -24,6 +24,8 @@ public class WordCount {
 		
 		String[] words = input.trim().split("\\s+");
 		for (String word : words) {
+			// remove punctuation on end of word.
+			word = word.replaceAll("\\w(\\.|!|\\?|,)$", "A"); 
 			int wordLengh = word.length();
 			if(wordBreakdown.containsKey(wordLengh)) {
 				wordBreakdown.put(wordLengh, wordBreakdown.get(wordLengh) + 1);
