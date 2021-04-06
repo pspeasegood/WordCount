@@ -27,7 +27,7 @@ public class App
     public static void main( String[] args ) throws IOException
     {
     	ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0);
+		HttpServer server = HttpServer.create(new InetSocketAddress(8081), 0);
 
 		server.createContext("/test", new MyHandler());
 		server.createContext("/wordCount", new WordCountHandler());
