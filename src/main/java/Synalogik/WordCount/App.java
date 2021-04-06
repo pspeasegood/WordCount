@@ -74,7 +74,6 @@ public class App
 			commonLengths.stream().skip(2).forEach(v -> stringBuilder.append("," + v));
 			
 			String response = stringBuilder.toString();
-			System.out.println(response);
 			t.sendResponseHeaders(200, response.length());
 			OutputStream os = t.getResponseBody();
 			os.write(response.getBytes());
